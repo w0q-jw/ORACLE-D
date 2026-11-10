@@ -24,8 +24,11 @@ from util import Logging
 from globalqueue.RoutingPolicies import RoutingPolicyFactory
 
 
+# Simulation - main controller of the simulation.
+#   Owns the simulation clock, every Site, the global job queue (spatial routing) and the main loop.
 logger = Logging.get_logger()
 
+# Site stores each site's cluster, job scheduler and data logger (plus its finish state).
 @dataclass
 class Site:
     site_id: str
@@ -60,6 +63,8 @@ class Simulation():
                                      for cluster_config in cluster_configs]
         return baseline_config, baseline_cluster_configs
 
+    # Sets up the simulation and its clock, builds every site, creates the routing policy and global
+    # job queue, and attaches a job scheduler to each site.
     def __init__(self, config, cluster_configs):
         self._config = config
         self.desiredStartTime = config["Simulation"]["desired_starttime"] # STEVE '2018-01-01 00:30' : Starts at the simulation at a set time can be set to any time you wish in the format '2024-01-12 15:00'
@@ -116,6 +121,8 @@ class Simulation():
                     worker_node.clock_down()
 
 
+    # Creates one site: loads its carbon-intensity rows for the simulated window and its hardware
+    # (worker-node inventory), and connects the cluster to a DataLogger.
     def _build_site(self, cluster_config, index):
         site_id = cluster_config.get("site_id", cluster_config.get("site_id", f"cluster_{index}"))
         cluster_run_dir = os.path.join(self._run_dir, site_id)
@@ -229,6 +236,7 @@ class Simulation():
             ci_segment_end=datafinal_str,
         )
 
+    # Connects the site to its job generation (initial and regular jobs) and its temporal-shifting policy.
     def _attach_job_scheduler(self, site, cluster_config):
         if cluster_config["jobs"]["regular_incoming_mix"] == {}:
             jobs_refill = None
@@ -260,6 +268,7 @@ class Simulation():
         site.job_scheduler = job_scheduler    
                 
 
+    # Collects and saves the per-site and all-site results once every site has finished.
     def _finalise(self, reason):
         #initiates all final logging once all sites have finished
         self._finished = True
@@ -422,6 +431,7 @@ class Simulation():
             return 'none'
         return ', '.join(f'{vo}: {jobs}' for vo, jobs in job_mix.items())
 
+    # Compares this (policy) run against the baseline run.
     def compare_to_baseline(self, baseline_simulation, run_seed):
         return self._global_logger.comparison(baseline_simulation._global_logger, run_seed,
                                                        self._simtottime.total_seconds(), baseline_simulation._simtottime.total_seconds())
@@ -430,6 +440,11 @@ class Simulation():
         self._global_logger.print_comparison(comparison, run_dir, print_console=print_console)
 
        
+    # Runs the simulation in repeated timesteps (600 s = 10 minutes by default). Each step:
+    #   1. Generates and releases jobs (each site's JobScheduler.update).
+    #   2. Routes jobs to computing sites (GlobalJobQueue.update).
+    #   3. Updates clusters and runs jobs on worker nodes (Cluster.update).
+    #   4. Advances time until the simulation finishes (no work left, or simulation_length reached).
     def start(self):
         while True:
             simtottime  = self._simulation_time.get_current_datetime() - self._simulation_time.get_start_datetime() # Simulated Time

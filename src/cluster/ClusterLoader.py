@@ -16,6 +16,9 @@ from pathlib import Path
 
 from util import Logging
 
+# ClusterLoader loads hardware information from CSV files: CPU threads, memory, idle power and, per
+# frequency, power and HEPScore. It creates the worker-node classes used by the simulation, which lets
+# the simulator represent different server specifications.
 logger = Logging.get_logger()
 
 

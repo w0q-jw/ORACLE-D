@@ -16,6 +16,10 @@ from util import Logging
 
 logger = Logging.get_logger()
 
+# Job factories generate synthetic computational jobs.
+#   Supports Basic (VOJobFactory), GridPP, ATLAS and LHCb workloads, each with different duration
+#   distributions, CPU-thread requirements and memory (GB per core) requirements.
+#   They provide the workload used to test the different scheduling policies.
 class VOJobFactory():
     
     def __init__(self, tag, RAM_per_core = 1, cores_req = None, origin_site = None):

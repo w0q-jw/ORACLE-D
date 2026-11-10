@@ -9,6 +9,11 @@ from util import Logging
 logger = Logging.get_logger()
 
 
+# WorkerNode represents an individual computing server.
+#   Stores CPU threads, RAM, power characteristics and HEPScore.
+#   Carbon-saving relevance: determines how much energy a job consumes, which affects its emissions.
+#   Potential issues: inconsistent memory checks (see can_schedule_job / start_job) and incorrect
+#   recorded durations for jobs exceeding 24 hours (see update).
 class WorkerNode():
 
     def __init__(self, simulation_time, hostname='', threads=0, memory=0, idlepower=0, freq_dep_specs={3.0:(300,3000), 2.0:(200,2000), 1.0:(100,1000)}):
@@ -179,11 +184,15 @@ class WorkerNode():
     def get_memory_available(self):
         return self._maximum_RAM - self._busy_RAM
   
+    # Checks whether a job fits on this node (free cores and memory).
+    # Potential issue: memory is checked per core here, but start_job reserves memory_req * cores_req.
     def can_schedule_job(self, job):
         if job.cores_req > self.get_free_core_count(): return False
         if job.memory_req > self.get_memory_available(): return False
         return True
      
+    # Allocates resources and begins execution. Job duration is adjusted based on the node's HEPScore
+    # (slower nodes take longer) and its current frequency.
     def start_job(self, job):
         job.start_time = self._simulation_time.get_current_datetime()
         # Adjust sampled duration according to worker node performance
@@ -200,6 +209,7 @@ class WorkerNode():
         self._busy_RAM   += job.memory_req*job.cores_req
             
 
+    # Estimates the energy (kWh) consumed by this node during one timestep.
     def timestep_power_dissipated(self):
         # Outputs the amount of power used by a machine in a timestep in kWh. 
         # Assume that machines always use the idle power amount but power dissipated scales linearly with number of cores used to the maximum. 
@@ -241,6 +251,7 @@ class WorkerNode():
             job.end_time = self._simulation_time.get_current_datetime() + newJobDuration
             
 
+    # clock_down and clock_up adjust CPU frequency through DVFS.
     def clock_down(self):
         # Function to decrease the frequency of a node by one available frequency-step.
         freqindex = self.frequencies_available.index(self._running_frequency)
@@ -269,6 +280,7 @@ class WorkerNode():
             print(f"This machine, {self.hostname}, is already running at its maximum frequency: {self.frequencies_available[freqindex]} GHz.")
   
     #### @lp.profile
+    # Checks whether running jobs have finished and frees their cores and memory.
     def update(self):
         remaining_jobs = []
         finished_jobs = []
@@ -277,6 +289,8 @@ class WorkerNode():
             # Has the job finished?
             if job.end_time <= self._simulation_time.get_current_datetime():
                 if job not in finished_jobs:
+                    # Potential issue: timedelta.seconds drops whole days, so jobs longer than 24 hours are recorded with
+                    # the wrong duration (total_seconds() would keep them).
                     job.duration = (job.end_time - job.start_time).seconds # need to update the duration of the job if it has been edited due to clockdowns
                     self._job_finished_handler(job, self)
                     finished_jobs.append(job)

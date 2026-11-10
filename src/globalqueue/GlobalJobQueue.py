@@ -5,6 +5,12 @@ from util import Logging
 
 logger = Logging.get_logger()
 
+# GlobalJobQueue (WP3 focus) stores jobs waiting to be routed between computing sites.
+#   submit_job adds jobs to the global queue.
+#   update processes the queue and uses the selected routing policy to choose a destination.
+#   Jobs marked force_origin return to their original site.
+#   Routed jobs are sent to the destination site's JobScheduler, where temporal shifting may also occur.
+#   Records how many jobs remain at their origin or move elsewhere.
 class GlobalJobQueue:
 
     _MAX_ROUTING_LOGS = 20

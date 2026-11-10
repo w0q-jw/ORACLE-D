@@ -19,6 +19,10 @@ import matplotlib.dates as mdates
 logger = Logging.get_logger()
 
 
+# DataLogger records jobs submitted, started and completed, and tracks waiting times, CPU time, occupancy,
+# energy consumption and carbon emissions. Produces summaries, statistics and graphs.
+# Important: carbon savings must be considered alongside completed jobs, as unfinished work can distort
+# the results.
 class DataLogger():
 
     # This should also write to disk...
@@ -94,6 +98,8 @@ class DataLogger():
         # Yes, Sam, I know... ;-)
         self._cumulative_cpu_time += job.duration * job.cores_req
 
+    # Accumulates energy and emissions for each timestep. Uses:
+    #     emissions (gCO2e) = energy (kWh) * carbon intensity (gCO2e/kWh, "actual" column)
     def energy_and_carbon_consumed(self, timestep_energy_consumed, timestep_carbon_consumed_per_site_energy):
         '''
         This should pass power dissipated in per timestep (kWh) such that the total consumption is in kiloWatt-hours
@@ -145,6 +151,7 @@ class DataLogger():
 
 
 
+    # Calculates differences between the policy (self) and baseline simulations.
     def comparison(self, baseline_logger, run_seed, actual_duration_s, baseline_duration_s):
         percentage_of_baseline_jobs_completed = self._safe_divide(self._jobs_finished, baseline_logger._jobs_finished) * 100
         carbon_saved_g = baseline_logger._total_carbon_consumed - self._total_carbon_consumed
@@ -152,6 +159,8 @@ class DataLogger():
         energy_saved_kwh = baseline_logger._total_energy_consumed - self._total_energy_consumed
         cpu_time_difference = self._cumulative_cpu_time - baseline_logger._cumulative_cpu_time
         logger.info(f"Base c: {baseline_logger._total_carbon_consumed} Actual c: {self._total_carbon_consumed} Base cpu: {baseline_logger._cumulative_cpu_time} Actual cpu: {self._cumulative_cpu_time}")
+        # Potential issue: the carbon-per-CPU-hour metric appears to have incorrect unit handling: CPU time is in
+        # core-seconds (so this is g per core-second, not per hour) and the summary labels it g/kWh.
         carbon_per_cpu_hour_baseline = baseline_logger._total_carbon_consumed/ baseline_logger._cumulative_cpu_time
         carbon_per_cpu_hour = self._total_carbon_consumed/self._cumulative_cpu_time
         carbon_per_cpu_hour_percentage = (carbon_per_cpu_hour_baseline - carbon_per_cpu_hour)/carbon_per_cpu_hour_baseline * 100 if carbon_per_cpu_hour_baseline > 0 else 0

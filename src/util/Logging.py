@@ -12,6 +12,9 @@ import logging
 import os
 import re
 
+# Logging configures how information and errors are recorded, creates directories for simulation
+# results, and controls logging verbosity and output filenames. Helps organise the output of different
+# experiments.
 VALID_VERBOSITY_LEVELS = ("low", "medium", "high")
 
 

@@ -4,6 +4,12 @@ from util import Logging
 
 logger = Logging.get_logger()
 
+# RoutingPolicies (WP3 focus) - decide WHERE jobs should execute.
+#   Carbon-saving purpose: move jobs towards computing sites with more favourable carbon intensity and
+#   available capacity.
+#   Limitation: the current model does not fully account for data-transfer emissions or network latency.
+#
+# OriginSiteRouting sends jobs to their original site.
 class OriginSiteRouting:
     def choose_scheduler(self, job, clusters):
         if job is None or clusters is None:
@@ -20,6 +26,10 @@ class OriginSiteRouting:
         return None
 
 
+# CapacityAwareCIRouting selects the site with the lowest routing score:
+#     routing_score = carbon_intensity * occupancy ** k
+#   k controls how strongly occupancy affects routing decisions (k = 0 ignores occupancy).
+#   Scores are computed once per timestep in prepare() and are not updated as jobs are assigned.
 class CapacityAwareCIRouting:
     def __init__(self, k=0.0, simulation_time=None):
         self._ci_store = {}
@@ -64,6 +74,10 @@ class CapacityAwareCIRouting:
         return chosen_site
 
 
+# OriginCapacityAwareCIRouting uses the same score and additionally:
+#   applies an origin_bias multiplier favouring the job's original site (values < 1 favour origin),
+#   skips sites at or above a 90% occupancy limit,
+#   updates projected occupancy after assigning each job.
 class OriginCapacityAwareCIRouting:
     def __init__(self, k=0.0, simulation_time=None, origin_bias=1.0):
         self._ci_store = {}
@@ -148,6 +162,7 @@ class OriginCapacityAwareCIRouting:
 
         return chosen_site
     
+# RoutingPolicyFactory selects the requested policy by name (k and origin_bias come from config.json).
 class RoutingPolicyFactory:
     def create_routing_policy(policy_name, simulation_time=None, routing_config=None):
         routing_config = routing_config or {}

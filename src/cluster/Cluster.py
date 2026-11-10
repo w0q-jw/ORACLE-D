@@ -18,6 +18,10 @@ from datetime import datetime, timedelta
 logger = Logging.get_logger()
 
 
+# Cluster represents the computing resources at one site.
+#   Contains worker nodes and a queue of jobs waiting for execution.
+#   Uses FIFO and first-fit placement: queued jobs are considered in order and assigned to the first
+#   suitable node. Also supports processor-frequency adjustment policies (savings_policy).
 class Cluster():
 
     def __init__(self, config, simulation_time, worker_node_inventory, C_Intensity_data, esgimmick, C_Intensity_Threshold_Value = 200):
@@ -94,6 +98,7 @@ class Cluster():
         return total
 
 
+    # Adds a job to the local queue.
     def submit_job(self, job):
         self._queued_jobs.append(job)
         self._job_submitted_handler(job)
@@ -110,6 +115,7 @@ class Cluster():
         return False
 
 
+    # Current resource utilisation: busy cores / total cores (jobs waiting in the queue are not counted).
     def cluster_occupancy(self):
         occ = 0
         coresavail = 0
@@ -140,6 +146,8 @@ class Cluster():
     def get_current_carbon_intensity(self):
         return float(self._get_carbon_data_row()[1])
     
+    # Each step: updates running jobs and checks for completed jobs, assigns waiting jobs to suitable worker
+    # nodes, updates the carbon-intensity pointer, and calculates the site's energy and emissions.
     def update(self):
         # ---------------------------------
         #    Job Management Steps 
@@ -179,6 +187,8 @@ class Cluster():
         #    Termination Check
         # ---------------------------------
         # First end condition: When we have no jobs running and no more jobs to submit, Exit this code and don't report power metrics.
+        # Potential issue: an empty cluster returns here before the energy section below, so its idle energy
+        # consumption is not recorded.
         if not self.has_running_jobs() and not self.has_queued_jobs():
             self._mission_accomplished = True
             return 

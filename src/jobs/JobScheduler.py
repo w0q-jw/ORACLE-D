@@ -13,6 +13,9 @@ from util import Logging
 
 logger = Logging.get_logger()
 
+# JobScheduler manages job generation for an individual site.
+#   Creates the initial jobs and additional jobs at configured intervals, and sends them through the
+#   global queue for spatial routing. Initial jobs are marked to return to (stay at) their original site.
 class JobScheduler():
     @property
     def site_id(self):
@@ -58,12 +61,15 @@ class JobScheduler():
                     else:
                         job = self._basic_job.create_job()
                     job.submit_time = self._simulation_time.get_current_datetime()
+                    # Initial jobs are marked force_origin: routing is skipped and they go to their original site.
                     job.force_origin = True
                     self._submit_target.submit_job(job)        
 
         if self._regular_incoming_jobs:
             self._regular_incoming_last_cycle = [0 for _ in self._regular_incoming_jobs]
 
+    # Called (via GlobalJobQueue) once a job has been routed to this site: passes the job through this
+    # site's temporal-shifting policy, which releases it to the local cluster now or later.
     def submit_job(self, job):
         current_time = self._simulation_time.get_current_datetime()
         self._temporal_shifter.submit_job(job, current_time, release_target=self._cluster)
@@ -83,6 +89,8 @@ class JobScheduler():
     def get_number_of_cores(self):
         return self._cluster.get_number_of_cores()
 
+    # Each step: processes held jobs (the temporal shifter may release some), then generates new jobs when
+    # a configured interval has elapsed and sends them to the global queue.
     def update(self):
         # Jobs to be submitted while the simulation is ongoing
         # Format for regular jobs is a tuple of a dictionary of [{'VO1':jobs per X seconds, 'VO2':jobs per X seconds, [...]}, X]

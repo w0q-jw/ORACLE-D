@@ -9,6 +9,10 @@
 
 import datetime
 
+# Job represents an individual computational task.
+#   Stores job duration (seconds), CPU requirements (cores_req), memory requirements (memory_req, GB per core)
+#   and origin site. Tracks when a job is submitted, started and completed (end_time).
+#   These properties determine whether a job can run on a node and how long it takes.
 class Job():
     
 

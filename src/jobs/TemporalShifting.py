@@ -6,6 +6,12 @@ import matplotlib.dates as mdates
 
 logger = Logging.get_logger()
 
+# TemporalShifting (WP3 focus) - decides WHEN jobs are released for execution.
+#   Carbon-saving purpose: move computational activity towards lower-carbon periods.
+#   Limitation: delayed or unfinished jobs can make savings appear greater than they really are, because
+#   work still held at the end of a fixed-length simulation is never charged any energy or emissions.
+#
+# SubmitImmediately releases jobs without carbon-aware delays.
 class SubmitImmediately:
     @property
     def held_jobs(self):
@@ -18,6 +24,13 @@ class SubmitImmediately:
     def update(self, current_time, current_CI, submit_target=None):
         return []
 
+# SustainableQueue holds jobs while waiting for cleaner electricity, using carbon-intensity percentiles
+# (computed from the forecast column over the whole simulated window):
+#   Initially:         release when CI is at or below the 25th percentile.
+#   After 6 hours:     release when CI is at or below the 50th percentile.
+#   After 12 hours:    release when CI is at or below the 75th percentile.
+#   After 24 hours:    force release (deadline).
+# Ordinary (non-forced) releases also respect a 90% projected occupancy threshold on the target cluster.
 class SustainableQueue:
     def __init__(self, config, carbon_intensity_data=None):
         self._max_wait_hours = 24
@@ -252,6 +265,7 @@ class SustainableQueue:
             plt.close(fig2)
             logger.info(f'Release breakdown plot saved to {output_dir}/temporal_shifting_breakdown.png')
 
+# TemporalShiftingFactory selects the configured scheduling policy by name.
 class TemporalShiftingFactory:
     def create_temporal_policy(policy_name, site_id=None, carbon_intensity_data=None):
         policies = {

@@ -13,6 +13,8 @@ from util import Logging
 logger = Logging.get_logger()
 
 
+# SimulationTime manages the simulated date and time.
+#   Tracks the current time, the starting time and the timestep length.
 class SimulationTime():
 
     def __init__(self, config_or_time, time = None):
@@ -55,6 +57,8 @@ class SimulationTime():
             logger.info(f'Set to time: {self._time}')
     
     
+    # Helps identify the relevant 30-minute carbon-intensity interval: returns the start ('current')
+    # or end ('next') of the half-hour segment containing dt.
     def find_hh_segment(self, dt, instruction = 'current'):
         nudge = dt + timedelta(seconds=1) # If we start on the half-hour it counts as starting on the previous, so nudge it forward
         delta = timedelta(minutes=30)
@@ -65,6 +69,7 @@ class SimulationTime():
             return next_hh_seg - delta
 
 
+    # Moves the simulation forward by one timestep.
     def advance(self):
         self._time += timedelta(seconds = self._timestep_seconds)
         logger.debug(f'Current time: {self._time}')
