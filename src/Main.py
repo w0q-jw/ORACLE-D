@@ -99,6 +99,8 @@ if __name__ == '__main__':
             "site_id": site["site_id"],
             "cluster": site["cluster"],
             "carbon_intensity": site["carbon_intensity"],
+            # WP3 future extension: this already carries the complete jobs object,
+            # including any future generation_profile, into both simulation runs.
             "jobs": site["jobs"],
             "savings_policy": site.get("savings_policy", "none"),
             "temporal_shifting": site.get("temporal_shifting", config["Simulation"].get("temporal_shifting", {"policy": "none"}))

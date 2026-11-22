@@ -238,6 +238,9 @@ class Simulation():
 
     # Connects the site to its job generation (initial and regular jobs) and its temporal-shifting policy.
     def _attach_job_scheduler(self, site, cluster_config):
+        # WP3 future extension: read optional jobs.generation_profile here and
+        # pass it to JobScheduler; absent settings must preserve legacy generation.
+        # Keep the existing job counts and refill interval independent of the profile.
         if cluster_config["jobs"]["regular_incoming_mix"] == {}:
             jobs_refill = None
         else:

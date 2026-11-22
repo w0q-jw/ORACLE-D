@@ -38,6 +38,9 @@ class JobScheduler():
         self._temporal_shifter = temporal_shifter if temporal_shifter is not None else SubmitImmediately()
         logger.info(f"JobScheduler for site {self._site_id} initialized with temporal shifter: {type(self._temporal_shifter).__name__}")
         # Create the job factories
+        # WP3 future extension: __init__ could receive generation_profile and pass
+        # its optional ATLAS subsection to both _atlas_prod and _atlas_hourly below,
+        # so initial and incoming jobs share the site profile and legacy defaults.
         self._basic_job     = VOJobFactory('VO-Basic-', origin_site=self._site_id)
         self._gridpp_job    = GridPPJobFactory('GridPP-', origin_site=self._site_id)
         self._atlas_prod    = ATLASJobFactory('ATLAS-Prod-', origin_site=self._site_id)

@@ -80,12 +80,17 @@ class GridPPJobFactory(VOJobFactory):
 
 
 class ATLASJobFactory(VOJobFactory):
+    # WP3 future extension: __init__ could accept the optional ATLAS profile,
+    # validate supplied probabilities in [0, 1], and retain each missing default.
     def __init__(self, tag, RAM_per_core = 2, cores_req = None, origin_site = None):
         super().__init__(tag, RAM_per_core, cores_req, origin_site)
         
 
     def __get_duration(self):
         # Calculate duration in minutes, output said duration in seconds.
+        # WP3 future extension: short_job_probability belongs at this branch.
+        # Legacy probability is 251/600 (~0.418333), not exactly 0.418; preserve
+        # this sampling path when absent and confirm explicit-profile semantics.
         seed = int(600*random.random())
         if seed < 251: # empty pilot jobs
             durationmins = random.gauss(15,5) # ~15 mins for an empty pilot to run. 
@@ -99,6 +104,8 @@ class ATLASJobFactory(VOJobFactory):
     def __require_cores(self):
         if self._cores_requested is not None:
             return self._cores_requested
+        # WP3 future extension: eight_slot_probability could supply this threshold;
+        # retain 0.8 when absent and keep explicit cores_req precedence above.
         return 8 if random.random() < 0.8 else 1
 
     def create_job(self):
@@ -106,6 +113,8 @@ class ATLASJobFactory(VOJobFactory):
         self._job_number += 1
         name = f'{self._tag}{self._job_number}'
         job = Job(name, self.__get_duration(), self._memory_required_GB_per_core, self.__require_cores(), self._origin_site)
+        # WP3 reproducibility: this logging block samples duration and cores again
+        # for the first ten jobs per factory; preserve its draws during profile work.
         if self._job_number <= 10:
             logger.info(
                 f"ATLAS JOB {self._job_number}: "
