@@ -1,0 +1,16 @@
+{
+  "sites": [
+    "Scot",
+    "UoM",
+    "RAL"
+  ],
+  "start": "2024-01-26 12:00",
+  "length_s": 21600,
+  "routing": "origin_site",
+  "temporal": "submit_immediately",
+  "seed": 101,
+  "stage": "P3",
+  "run_id": "P3-09",
+  "scenario_id": "FAIL_START_IN_GAP",
+  "notes": "start inside 2024-01-25..02-16 regional gap"
+}

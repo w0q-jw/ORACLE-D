@@ -1,0 +1,23 @@
+{
+  "run_id": "B-OCA_k0_OB0.9-med-3s-WIN-s303",
+  "scenario_id": "B:OCA_k0_OB0.9:med:3site:WIN",
+  "stage": "P4B",
+  "seed": 303,
+  "start": "2026-01-05 16:00",
+  "length_s": 604800,
+  "sites": [
+    "Scot",
+    "UoM",
+    "RAL"
+  ],
+  "routing": "origin_capacity_aware_CI",
+  "k": 0.0,
+  "origin_bias": 0.9,
+  "temporal": "submit_immediately",
+  "load": {
+    "initial": 1750,
+    "incoming": 80
+  },
+  "notes": "policy=OCA_k0_OB0.9; load=med; sites=3",
+  "timeout_s": 3600
+}

@@ -1,0 +1,31 @@
+{
+  "run_id": "A-rising-CA_k0-s101",
+  "scenario_id": "A:rising:CA_k0",
+  "stage": "P4A",
+  "seed": 101,
+  "start": "2030-01-01 00:00",
+  "length_s": 604800,
+  "sites": [
+    "Scot",
+    "UoM",
+    "RAL"
+  ],
+  "routing": "capacity_aware_CI",
+  "k": 0.0,
+  "origin_bias": null,
+  "temporal": "submit_immediately",
+  "load": {
+    "initial": 1750,
+    "incoming": 80
+  },
+  "notes": "policy=CA_k0; load=med; sites=3",
+  "ci_override": {
+    "name": "rising",
+    "folder": "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/validation_tests/fixtures/ci",
+    "files": {
+      "Scot": "rising_Scot.csv",
+      "UoM": "rising_UoM.csv",
+      "RAL": "rising_RAL.csv"
+    }
+  }
+}

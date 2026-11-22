@@ -1,0 +1,23 @@
+{
+  "run_id": "B-NULL-med-3s-WIN-s303",
+  "scenario_id": "B:NULL:med:3site:WIN",
+  "stage": "P4B",
+  "seed": 303,
+  "start": "2026-01-05 16:00",
+  "length_s": 604800,
+  "sites": [
+    "Scot",
+    "UoM",
+    "RAL"
+  ],
+  "routing": "origin_site",
+  "k": null,
+  "origin_bias": null,
+  "temporal": "submit_immediately",
+  "load": {
+    "initial": 1750,
+    "incoming": 80
+  },
+  "notes": "policy=NULL; load=med; sites=3",
+  "timeout_s": 3600
+}

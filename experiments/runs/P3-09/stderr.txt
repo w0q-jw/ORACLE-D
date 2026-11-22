@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/harness/launch.py", line 279, in <module>
+    runpy.run_path(os.path.join(src, 'Main.py'), run_name='__main__')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 294, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/runs/P3-09/root/src/Main.py", line 96, in <module>
+    baseline_sim.start()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/harness/launch.py", line 188, in sim_start
+    _orig_sim_start(self)
+    ~~~~~~~~~~~~~~~^^^^^^
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/runs/P3-09/root/src/simulation/Simulation.py", line 440, in start
+    site.job_scheduler.update()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/runs/P3-09/root/src/jobs/JobScheduler.py", line 90, in update
+    current_CI = self._cluster.get_current_carbon_intensity()
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/runs/P3-09/root/src/cluster/Cluster.py", line 141, in get_current_carbon_intensity
+    return float(self._get_carbon_data_row()[1])
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/runs/P3-09/root/src/cluster/Cluster.py", line 137, in _get_carbon_data_row
+    return self._carbondata[index]
+           ~~~~~~~~~~~~~~~~^^^^^^^
+IndexError: list index out of range

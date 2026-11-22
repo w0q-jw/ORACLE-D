@@ -1,0 +1,20 @@
+{
+  "run_id": "P3-04",
+  "scenario_id": "SMOKE_NULL",
+  "stage": "P3",
+  "seed": 101,
+  "sites": [
+    "Scot",
+    "UoM",
+    "RAL"
+  ],
+  "start": "2026-01-05 16:00",
+  "length_s": 21600,
+  "routing": "origin_site",
+  "temporal": "submit_immediately",
+  "load": {
+    "initial": 50,
+    "incoming": 5
+  },
+  "notes": "reduced smoke: 6 h, 50 initial + 5/10min per site"
+}

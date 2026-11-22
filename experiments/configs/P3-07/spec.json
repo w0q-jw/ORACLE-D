@@ -1,0 +1,16 @@
+{
+  "sites": [
+    "Scot",
+    "UoM",
+    "RAL"
+  ],
+  "start": "2026-01-05 16:00",
+  "length_s": 3600,
+  "routing": "teleport",
+  "temporal": "submit_immediately",
+  "seed": 101,
+  "stage": "P3",
+  "run_id": "P3-07",
+  "scenario_id": "FAIL_BAD_ROUTING",
+  "notes": "invalid routing policy name"
+}

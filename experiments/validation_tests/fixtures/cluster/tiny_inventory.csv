@@ -1,0 +1,2 @@
+representative,timestamp_check,number_machines,number_decommissioned,type,subtype,comment,manufacturer,model,cpu_model,hepscore,installation_date,cluster(main_Puppet_hostgroup),total_cores,total_threads,total_mem_in_Gb,power_min_60d,power_max_60d
+tiny-T1,2030-01-01T00:00:00,1,0,TINY,0,synthetic fixture,,synthetic,synthetic,1939.6,2030,TINY,1,2,4,100,300

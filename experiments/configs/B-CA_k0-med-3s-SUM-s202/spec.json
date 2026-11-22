@@ -1,0 +1,23 @@
+{
+  "run_id": "B-CA_k0-med-3s-SUM-s202",
+  "scenario_id": "B:CA_k0:med:3site:SUM",
+  "stage": "P4B",
+  "seed": 202,
+  "start": "2026-06-15 00:00",
+  "length_s": 604800,
+  "sites": [
+    "Scot",
+    "UoM",
+    "RAL"
+  ],
+  "routing": "capacity_aware_CI",
+  "k": 0.0,
+  "origin_bias": null,
+  "temporal": "submit_immediately",
+  "load": {
+    "initial": 1750,
+    "incoming": 80
+  },
+  "notes": "policy=CA_k0; load=med; sites=3",
+  "timeout_s": 3600
+}

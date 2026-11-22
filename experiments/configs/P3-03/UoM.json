@@ -1,0 +1,27 @@
+{
+  "site_id": "UoM",
+
+  "cluster": {
+    "cluster_name": "DEFAULT",
+    "inventory_csv": "data/cluster/default-machinegroups_inventory.csv",
+    "frequency_csv": "data/cluster/default-frequency_dependence.csv",
+    "strict": false
+  },
+
+  "carbon_intensity": {
+    "folder": "data/carbon_intensity/",
+    "filename": "north_west_england_intensity.csv",
+    "high_CI_threshold": 300
+  },
+  "jobs": {"initial_mix": {"ATLAS": 1750},
+    "regular_incoming_mix": {"ATLAS": 80},
+    "incoming_timestep": 600
+  },
+
+
+  "savings_policy": "none",
+
+  "temporal_shifting": {
+    "policy": "submit_immediately"
+  }
+}

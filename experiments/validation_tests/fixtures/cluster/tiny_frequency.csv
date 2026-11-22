@@ -1,0 +1,3 @@
+hostname,type,subtype,latest measurement,frequency_power_hepscore
+tiny-T1,TINY,0,2030-01-01T00:00:00,1000_300_1939.6
+tiny-T2,RAMTEST,0,2030-01-01T00:00:00,1000_300_1939.6

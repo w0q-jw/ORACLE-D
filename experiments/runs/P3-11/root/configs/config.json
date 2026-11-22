@@ -1,0 +1,21 @@
+{
+    "Simulation": {
+        "desired_starttime": "2026-01-05 16:00",
+        "simulation_length": 3600,
+        "timestep": 600,
+        "routing": {
+            "policy": "origin_site"
+        }
+    },
+    "sites": [
+        "Scot.json",
+        "UoM.json",
+        "RAL.json"
+    ],
+    "output": {
+        "verbosity": "medium",
+        "debug": false,
+        "log_dir": "logs/runs",
+        "run_label": "P3-11"
+    }
+}

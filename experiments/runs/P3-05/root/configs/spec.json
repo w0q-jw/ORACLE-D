@@ -1,0 +1,12 @@
+{
+  "run_id": "P3-05",
+  "scenario_id": "UNCHANGED_REPO_CONFIG",
+  "stage": "P3",
+  "seed": 101,
+  "sites": [
+    "Scot",
+    "UoM",
+    "RAL"
+  ],
+  "notes": "instrumentation v2 (true-duration capture) equivalence vs P3-02"
+}

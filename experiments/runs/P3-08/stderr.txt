@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/harness/launch.py", line 279, in <module>
+    runpy.run_path(os.path.join(src, 'Main.py'), run_name='__main__')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 294, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/runs/P3-08/root/src/Main.py", line 95, in <module>
+    baseline_sim = Simulation(baseline_config, baseline_cluster_configs)
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/harness/launch.py", line 102, in sim_init
+    _orig_sim_init(self, config, cluster_configs)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/runs/P3-08/root/src/simulation/Simulation.py", line 84, in __init__
+    site = self._build_site(cluster_config, index)
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/runs/P3-08/root/src/simulation/Simulation.py", line 147, in _build_site
+    with open(datapath+datafile) as file:
+         ~~~~^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'data/carbon_intensity/nonexistent.csv'

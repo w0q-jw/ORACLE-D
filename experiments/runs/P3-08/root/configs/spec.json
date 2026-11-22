@@ -1,0 +1,25 @@
+{
+  "sites": [
+    "Scot",
+    "UoM",
+    "RAL"
+  ],
+  "start": "2026-01-05 16:00",
+  "length_s": 3600,
+  "routing": "origin_site",
+  "temporal": "submit_immediately",
+  "seed": 101,
+  "stage": "P3",
+  "run_id": "P3-08",
+  "scenario_id": "FAIL_MISSING_CI",
+  "site_overrides": {
+    "RAL": {
+      "carbon_intensity": {
+        "folder": "data/carbon_intensity/",
+        "filename": "nonexistent.csv",
+        "high_CI_threshold": 400
+      }
+    }
+  },
+  "notes": "missing CI file"
+}

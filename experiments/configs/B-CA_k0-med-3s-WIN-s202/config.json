@@ -1,0 +1,22 @@
+{
+    "Simulation": {
+        "desired_starttime": "2026-01-05 16:00",
+        "simulation_length": 604800,
+        "timestep": 600,
+        "routing": {
+            "policy": "capacity_aware_CI",
+            "k": 0.0
+        }
+    },
+    "sites": [
+        "Scot.json",
+        "UoM.json",
+        "RAL.json"
+    ],
+    "output": {
+        "verbosity": "medium",
+        "debug": false,
+        "log_dir": "logs/runs",
+        "run_label": "B-CA_k0-med-3s-WIN-s202"
+    }
+}

@@ -1,0 +1,17 @@
+Running baseline simulation with no carbon savings policy
+Running actual simulation
+
+Site ID: DESYScot
+Cluster: DESYT3_0: 40 DESYT4_0: 76 DESYT11_0: 41 DESYT13_0: 24 DESYT16_0: 20 DESYT17_0: 10 DESYT26_0: 12 DESYT31_0: 10 DESYT382_0: 77 
+Energy saving try: none
+CIThresholdValue: 400
+
+Site ID: UoM
+Cluster: DESYT3_0: 40 DESYT4_0: 76 DESYT11_0: 41 DESYT13_0: 24 DESYT16_0: 20 DESYT17_0: 10 DESYT26_0: 12 DESYT31_0: 10 DESYT382_0: 77 
+Energy saving try: none
+CIThresholdValue: 300
+
+Site ID: RAL
+Cluster: DESYT3_0: 40 DESYT4_0: 76 DESYT11_0: 41 DESYT13_0: 24 DESYT16_0: 20 DESYT17_0: 10 DESYT26_0: 12 DESYT31_0: 10 DESYT382_0: 77 
+Energy saving try: none
+CIThresholdValue: 400

@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/runs/P3-07/root/src/globalqueue/RoutingPolicies.py", line 163, in create_routing_policy
+    return policies[policy_name]()
+           ~~~~~~~~^^^^^^^^^^^^^
+KeyError: 'teleport'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/harness/launch.py", line 279, in <module>
+    runpy.run_path(os.path.join(src, 'Main.py'), run_name='__main__')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 294, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/runs/P3-07/root/src/Main.py", line 102, in <module>
+    sim = Simulation(config, cluster_configs)
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/harness/launch.py", line 102, in sim_init
+    _orig_sim_init(self, config, cluster_configs)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/runs/P3-07/root/src/simulation/Simulation.py", line 87, in __init__
+    routing_policy = RoutingPolicyFactory.create_routing_policy(
+        self.routing_policy_name,
+        simulation_time=self._simulation_time,
+        routing_config=config["Simulation"].get("routing", {}),
+    )
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/runs/P3-07/root/src/globalqueue/RoutingPolicies.py", line 165, in create_routing_policy
+    raise ValueError(f"Invalid routing policy name: {policy_name}")
+ValueError: Invalid routing policy name: teleport

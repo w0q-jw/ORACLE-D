@@ -1,0 +1,31 @@
+{
+  "run_id": "A-flat_equal-OCA_k1.3_OB0.9-s101",
+  "scenario_id": "A:flat_equal:OCA_k1.3_OB0.9",
+  "stage": "P4A",
+  "seed": 101,
+  "start": "2030-01-01 00:00",
+  "length_s": 604800,
+  "sites": [
+    "Scot",
+    "UoM",
+    "RAL"
+  ],
+  "routing": "origin_capacity_aware_CI",
+  "k": 1.3,
+  "origin_bias": 0.9,
+  "temporal": "submit_immediately",
+  "load": {
+    "initial": 1750,
+    "incoming": 80
+  },
+  "notes": "policy=OCA_k1.3_OB0.9; load=med; sites=3",
+  "ci_override": {
+    "name": "flat_equal",
+    "folder": "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/validation_tests/fixtures/ci",
+    "files": {
+      "Scot": "flat_equal_Scot.csv",
+      "UoM": "flat_equal_UoM.csv",
+      "RAL": "flat_equal_RAL.csv"
+    }
+  }
+}

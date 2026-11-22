@@ -1,0 +1,23 @@
+{
+    "Simulation": {
+        "desired_starttime": "2026-06-15 00:00",
+        "simulation_length": 604800,
+        "timestep": 600,
+        "routing": {
+            "policy": "origin_capacity_aware_CI",
+            "k": 0.0,
+            "origin_bias": 0.9
+        }
+    },
+    "sites": [
+        "Scot.json",
+        "UoM.json",
+        "RAL.json"
+    ],
+    "output": {
+        "verbosity": "medium",
+        "debug": false,
+        "log_dir": "logs/runs",
+        "run_label": "B-OCA_k0_OB0.9-med-3s-SUM-s404"
+    }
+}

@@ -1,0 +1,14 @@
+{
+  "run_id": "P3-03",
+  "scenario_id": "UNCHANGED_REPO_CONFIG",
+  "stage": "P3",
+  "seed": 101,
+  "instrument": true,
+  "sites": [
+    "Scot",
+    "UoM",
+    "RAL"
+  ],
+  "temporal": "submit_immediately (per site file)",
+  "notes": "unchanged repo config; replay of P3-01 (determinism check)"
+}

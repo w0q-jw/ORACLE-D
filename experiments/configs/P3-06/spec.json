@@ -1,0 +1,25 @@
+{
+  "sites": [
+    "Scot",
+    "UoM",
+    "RAL"
+  ],
+  "start": "2026-01-05 16:00",
+  "length_s": 604800,
+  "routing": "origin_site",
+  "temporal": "submit_immediately",
+  "seed": 101,
+  "stage": "P3",
+  "run_id": "P3-06",
+  "scenario_id": "EMPTY_SITE",
+  "site_overrides": {
+    "UoM": {
+      "jobs": {
+        "initial_mix": {},
+        "regular_incoming_mix": {},
+        "incoming_timestep": 600
+      }
+    }
+  },
+  "notes": "UoM has zero jobs: quantify unlogged idle energy (B10)"
+}

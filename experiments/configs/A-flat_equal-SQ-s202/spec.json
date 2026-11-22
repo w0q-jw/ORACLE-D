@@ -1,0 +1,31 @@
+{
+  "run_id": "A-flat_equal-SQ-s202",
+  "scenario_id": "A:flat_equal:SQ",
+  "stage": "P4A",
+  "seed": 202,
+  "start": "2030-01-01 00:00",
+  "length_s": 604800,
+  "sites": [
+    "Scot",
+    "UoM",
+    "RAL"
+  ],
+  "routing": "origin_site",
+  "k": null,
+  "origin_bias": null,
+  "temporal": "sustainable_queue",
+  "load": {
+    "initial": 1750,
+    "incoming": 80
+  },
+  "notes": "policy=SQ; load=med; sites=3",
+  "ci_override": {
+    "name": "flat_equal",
+    "folder": "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/validation_tests/fixtures/ci",
+    "files": {
+      "Scot": "flat_equal_Scot.csv",
+      "UoM": "flat_equal_UoM.csv",
+      "RAL": "flat_equal_RAL.csv"
+    }
+  }
+}

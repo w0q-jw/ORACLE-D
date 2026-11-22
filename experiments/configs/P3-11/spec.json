@@ -1,0 +1,20 @@
+{
+  "sites": [
+    "Scot",
+    "UoM",
+    "RAL"
+  ],
+  "start": "2026-01-05 16:00",
+  "length_s": 3600,
+  "routing": "origin_site",
+  "temporal": "submit_immediately",
+  "seed": 101,
+  "stage": "P3",
+  "run_id": "P3-11",
+  "scenario_id": "FAIL_ZERO_JOBS",
+  "load": {
+    "initial": 0,
+    "incoming": 0
+  },
+  "notes": "no jobs anywhere -> zero baseline"
+}

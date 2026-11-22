@@ -1,0 +1,16 @@
+{
+  "sites": [
+    "Scot",
+    "UoM",
+    "RAL"
+  ],
+  "start": "2025-01-12 20:00",
+  "length_s": 21600,
+  "routing": "origin_site",
+  "temporal": "submit_immediately",
+  "seed": 101,
+  "stage": "P3",
+  "run_id": "P3-10",
+  "scenario_id": "FAIL_BLANK_CI",
+  "notes": "window covers blank CI rows from 2025-01-12 23:00"
+}

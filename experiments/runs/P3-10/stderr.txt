@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/harness/launch.py", line 279, in <module>
+    runpy.run_path(os.path.join(src, 'Main.py'), run_name='__main__')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 294, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/runs/P3-10/root/src/Main.py", line 96, in <module>
+    baseline_sim.start()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/harness/launch.py", line 188, in sim_start
+    _orig_sim_start(self)
+    ~~~~~~~~~~~~~~~^^^^^^
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/runs/P3-10/root/src/simulation/Simulation.py", line 447, in start
+    site.cluster.update()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/harness/launch.py", line 150, in cluster_update
+    _orig_cluster_update(self)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/sh/Documents/Scripts/ORACLE-D-dev/experiments/runs/P3-10/root/src/cluster/Cluster.py", line 233, in update
+    self._timestep_carbon_consumed = float(self._get_carbon_data_row()[2]) # Read in the carbon intensity of the grid at the timestep you are on.
+                                     ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: could not convert string to float: ''

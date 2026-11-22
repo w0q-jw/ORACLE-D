@@ -1,0 +1,14 @@
+{
+  "run_id": "P3-02",
+  "scenario_id": "UNCHANGED_REPO_CONFIG",
+  "stage": "P3",
+  "seed": 101,
+  "instrument": false,
+  "sites": [
+    "Scot",
+    "UoM",
+    "RAL"
+  ],
+  "temporal": "submit_immediately (per site file)",
+  "notes": "unchanged repo config; NOT instrumented (instrumentation-equivalence check vs P3-01)"
+}
